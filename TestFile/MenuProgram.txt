@@ -1,0 +1,119 @@
+global
+    continu:int = 1;
+    array:int = {}:int;
+    arr:{int} = {}:int
+end
+
+function Menu():int
+    local
+        scelta:int;
+        "Scegli l'operazione da eseguire \n" ==>;
+        "1 - Somma \n" ==>;
+        "2 - Moltiplicazione \n" ==>;
+        "3 - Divisione \n"  ==>;
+        "4 - Elevamento a potenza \n" ==>;
+        "5 - Successione di Fibonacci \n" ==>;
+        "0 - Esci dal Menu' " ==>;
+        scelta <==;
+        return scelta
+    end
+end
+
+function Somma():int
+    local
+        a:int;
+        b:int;
+        "Inserisci a: "==>;
+        a <==;
+        "Inserisci b: "==>;
+        b <==;
+        return a+b
+    end
+end
+
+function Moltiplicazione():int
+    local
+        a:int;
+        b:int;
+        c:int = 0;
+        i:int;
+        "Inserisci a: "==>;
+        a <==;
+        "Inserisci b: "==>;
+        b <==;
+        for z = 1, z<=b
+            do
+               c = c + a
+            end;
+        return c
+    end
+end
+
+function Divisione(a:int, b:int):int
+    local
+        i:int = a;
+        c:int=0;
+        while i >= b
+            do
+                i = i - b;
+                c = c + 1
+            end;
+        return c
+    end
+end
+
+function Potenza():int
+    local
+        a:int;
+        b:int;
+        c:int = 1;
+        i:int;
+        "Inserisci a: "==>;
+        a <==;
+        "Inserisci b:" ==>;
+        b <==;
+        for z = 1, z<= b
+            do
+                c = c * a
+            end;
+        return c
+    end
+end
+
+function Fibonacci(n:int):int
+           if n == 0 then return 0 end;
+           if n == 1 then return 1
+           else return Fibonacci(n-1) + Fibonacci(n-2)  end
+end
+
+function main():nil
+    local
+        a:int;
+        b:int;
+
+        while
+            continu == 1
+        do
+            local
+                scelta:int = Menu(nil);
+                if scelta == 1 then Somma(nil) ==> end;
+                if scelta == 2 then Moltiplicazione(nil) ==> end;
+                if scelta == 3 then
+                "Inserisci a " ==>;
+                a <==;
+                "Inserisci b " ==>;
+                b <==;
+                Divisione(a,b) ==>
+                end;
+                if scelta == 4 then Potenza(nil) ==> end;
+                if scelta == 5
+                    then
+                    "Inserisci a: " ==>;
+                    a <==;
+                    Fibonacci(a) ==>
+                end;
+                if scelta == 0 then continu = 0 end
+            end
+        end
+    end
+end

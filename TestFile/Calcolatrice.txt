@@ -1,0 +1,86 @@
+global
+    continu:int = 1;
+    ciao:float= 0.7;
+    nonso:float={}:float
+    end
+
+
+function Menu():int
+    local
+        scelta:int;
+        "Benvenuto! Scegli l'operazione da eseguire \n" ==>;
+        "1) Addizione \n" ==>;
+        "2) Sottrazione \n" ==>;
+        "3) Divisione \n" ==>;
+        "4) Moltiplicazione \n" ==>;
+        "0) Esci dal Menu'" ==>;
+        scelta <==;
+        return scelta
+    end
+end
+
+function Addizione():int
+    local
+        a:int;
+        b:int;
+        "Inserisci a: "==>;
+        a <==;
+        "Inserisci b: "==>;
+        b <==;
+        return a+b
+    end
+end
+
+function Sottrazione():int
+    local
+        a:int;
+        b:int;
+        s: string;
+        z: string;
+        "Inserisci s: " ==>;
+        s = z;
+        "Inserisci a: "==>;
+        a <==;
+        "Inserisci b: "==>;
+        b <==;
+        return a-b
+    end
+end
+
+function Moltiplicazione():int
+    local
+        a:int;
+        b:int;
+        "Inserisci a: "==>;
+        a <==;
+        "Inserisci b: "==>;
+        b <==;
+        return a*b
+    end
+end
+
+function Divisione():float
+    local
+        a:float;
+        b:float;
+        "Inserisci a" ==>;
+        a <==;
+        "Inserisci b: "==>;
+        b <==;
+        return a/b
+    end
+end
+
+function main():nil
+    while
+        continu == 1
+    do
+        local
+            scelta:int = Menu(nil);
+            if scelta == 1 then Addizione(nil) ==> end;
+            if scelta == 2 then Sottrazione(nil) ==> end;
+            if scelta == 3 then Moltiplicazione(nil) ==> end;
+            if scelta == 4 then Divisione(nil) ==> end
+        end
+    end
+end

@@ -1,0 +1,19 @@
+global
+    result : float = result+4;
+    buffer : float = 0.0
+end
+
+function addInc( x : float , y : float ): float
+    x = x +1;
+    local
+        i : int = 2;
+        nop
+    end
+end
+
+
+function main( ): nil
+    buffer, result <== ;
+    result = addInc( result+1, buffer );
+    "la somma risulta: ", result ==>
+end

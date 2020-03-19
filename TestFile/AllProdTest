@@ -1,0 +1,80 @@
+global
+    b:float =1;
+    z: int = 0;
+    x: int;
+    c: int;
+    h: float = 0;
+    a: int = 9;
+    ollare: int = {}:int;
+    s: int
+end
+
+
+
+function main (): int
+    nop;
+    while z + -4
+    do
+        local
+            d:string = "ciao";
+            k:string = "bravo";
+            nonso:bool;
+            c:int;
+            a:int={}:int;
+            lol:bool;
+           //dot:int = d == k;
+           //dot:int = d < k;
+           d="ciao";
+            if d<=k
+                then
+                     x=1+b;
+                     somefun(nonso, nonso);
+                     c=9
+                else
+                    a,b,c <==;
+                    return somefun(nonso, nonso)
+            end;
+            c=2
+        end
+     end
+end
+
+
+function provaloc (): int
+        local
+            nonso:bool;
+            a:int={}:int;
+            b:string;
+            if a[c]
+                then
+                     x=1;
+                     c=9
+                else
+                    a,b,c <==;
+                    return somefun(nonso, nonso)
+            end;
+            c=2
+        end
+end
+
+
+function somefun( c: bool, asd: bool): int
+for k = #4, asd and c
+do
+    local
+        b:string;
+        if a==2
+            then
+                asd=false;
+                 x=1;
+                 c=true;
+                 a=4
+            else
+                "a",b,h ==>
+
+        end;
+        ollare[s/6]=4
+    end
+end;
+    return 4
+end

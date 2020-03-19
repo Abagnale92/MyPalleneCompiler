@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProgramOP>
+  <GlobalNode>
+    <VarDeclarations>
+      <VarDeclarationNode continu="INT">
+        <VarInitNode>
+          <INT_CONST INT_CONST="1"/>
+        </VarInitNode>
+      </VarDeclarationNode>
+      <VarDeclarationNode array="INT">
+        <VarInitNode>
+          <ArrayConst>
+            <TypeNode Type="INT"/>
+          </ArrayConst>
+        </VarInitNode>
+      </VarDeclarationNode>
+      <VarDeclarationNode arr="INT">
+        <VarInitNode>
+          <ArrayConst>
+            <TypeNode Type="INT"/>
+          </ArrayConst>
+        </VarInitNode>
+      </VarDeclarationNode>
+    </VarDeclarations>
+  </GlobalNode>
+  <Functions>
+    <FunDefinitionOp FunctionName="Menu">
+      <TypeNode Type="INT"/>
+      <BodyOp>
+        <LocalNode>
+          <VarDeclarations>
+            <VarDeclarationNode scelta="INT"/>
+          </VarDeclarations>
+          <BodyOp>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Scegli l'operazione da eseguire &#10;"/>
+              </Exprs>
+            </WriteNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="1 - Somma &#10;"/>
+              </Exprs>
+            </WriteNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="2 - Moltiplicazione &#10;"/>
+              </Exprs>
+            </WriteNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="3 - Divisione &#10;"/>
+              </Exprs>
+            </WriteNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="4 - Elevamento a potenza &#10;"/>
+              </Exprs>
+            </WriteNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="5 - Successione di Fibonacci &#10;"/>
+              </Exprs>
+            </WriteNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="0 - Esci dal Menu' "/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="scelta"/>
+              </Vars>
+            </ReadNode>
+            <ReturnNode>
+              <ID ID="scelta"/>
+            </ReturnNode>
+          </BodyOp>
+        </LocalNode>
+      </BodyOp>
+    </FunDefinitionOp>
+    <FunDefinitionOp FunctionName="Somma">
+      <TypeNode Type="INT"/>
+      <BodyOp>
+        <LocalNode>
+          <VarDeclarations>
+            <VarDeclarationNode a="INT"/>
+            <VarDeclarationNode b="INT"/>
+          </VarDeclarations>
+          <BodyOp>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Inserisci a: "/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="a"/>
+              </Vars>
+            </ReadNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Inserisci b: "/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="b"/>
+              </Vars>
+            </ReadNode>
+            <ReturnNode>
+              <PlusExpr>
+                <ID ID="a"/>
+                <ID ID="b"/>
+              </PlusExpr>
+            </ReturnNode>
+          </BodyOp>
+        </LocalNode>
+      </BodyOp>
+    </FunDefinitionOp>
+    <FunDefinitionOp FunctionName="Moltiplicazione">
+      <TypeNode Type="INT"/>
+      <BodyOp>
+        <LocalNode>
+          <VarDeclarations>
+            <VarDeclarationNode a="INT"/>
+            <VarDeclarationNode b="INT"/>
+            <VarDeclarationNode c="INT">
+              <VarInitNode>
+                <INT_CONST INT_CONST="0"/>
+              </VarInitNode>
+            </VarDeclarationNode>
+            <VarDeclarationNode i="INT"/>
+          </VarDeclarations>
+          <BodyOp>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Inserisci a: "/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="a"/>
+              </Vars>
+            </ReadNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Inserisci b: "/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="b"/>
+              </Vars>
+            </ReadNode>
+            <For>
+              <AssignExprToId ID_ASSIGN="z">
+                <INT_CONST INT_CONST="1"/>
+              </AssignExprToId>
+              <LeExpr>
+                <ID ID="z"/>
+                <ID ID="b"/>
+              </LeExpr>
+              <BodyOp>
+                <AssignExprToId ID_ASSIGN="c">
+                  <PlusExpr>
+                    <ID ID="c"/>
+                    <ID ID="a"/>
+                  </PlusExpr>
+                </AssignExprToId>
+              </BodyOp>
+            </For>
+            <ReturnNode>
+              <ID ID="c"/>
+            </ReturnNode>
+          </BodyOp>
+        </LocalNode>
+      </BodyOp>
+    </FunDefinitionOp>
+    <FunDefinitionOp FunctionName="Divisione">
+      <TypeNode Type="INT"/>
+      <ParamDecOp>
+        <Param a="INT"/>
+        <Param b="INT"/>
+      </ParamDecOp>
+      <BodyOp>
+        <LocalNode>
+          <VarDeclarations>
+            <VarDeclarationNode i="INT">
+              <VarInitNode>
+                <ID ID="a"/>
+              </VarInitNode>
+            </VarDeclarationNode>
+            <VarDeclarationNode c="INT">
+              <VarInitNode>
+                <INT_CONST INT_CONST="0"/>
+              </VarInitNode>
+            </VarDeclarationNode>
+          </VarDeclarations>
+          <BodyOp>
+            <WhileNode>
+              <GeExpr>
+                <ID ID="i"/>
+                <ID ID="b"/>
+              </GeExpr>
+              <BodyOp>
+                <AssignExprToId ID_ASSIGN="i">
+                  <MinusExpr>
+                    <ID ID="i"/>
+                    <ID ID="b"/>
+                  </MinusExpr>
+                </AssignExprToId>
+                <AssignExprToId ID_ASSIGN="c">
+                  <PlusExpr>
+                    <ID ID="c"/>
+                    <INT_CONST INT_CONST="1"/>
+                  </PlusExpr>
+                </AssignExprToId>
+              </BodyOp>
+            </WhileNode>
+            <ReturnNode>
+              <ID ID="c"/>
+            </ReturnNode>
+          </BodyOp>
+        </LocalNode>
+      </BodyOp>
+    </FunDefinitionOp>
+    <FunDefinitionOp FunctionName="Potenza">
+      <TypeNode Type="INT"/>
+      <BodyOp>
+        <LocalNode>
+          <VarDeclarations>
+            <VarDeclarationNode a="INT"/>
+            <VarDeclarationNode b="INT"/>
+            <VarDeclarationNode c="INT">
+              <VarInitNode>
+                <INT_CONST INT_CONST="1"/>
+              </VarInitNode>
+            </VarDeclarationNode>
+            <VarDeclarationNode i="INT"/>
+          </VarDeclarations>
+          <BodyOp>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Inserisci a: "/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="a"/>
+              </Vars>
+            </ReadNode>
+            <WriteNode>
+              <Exprs>
+                <STRING_CONST String="Inserisci b:"/>
+              </Exprs>
+            </WriteNode>
+            <ReadNode>
+              <Vars>
+                <ID ID="b"/>
+              </Vars>
+            </ReadNode>
+            <For>
+              <AssignExprToId ID_ASSIGN="z">
+                <INT_CONST INT_CONST="1"/>
+              </AssignExprToId>
+              <LeExpr>
+                <ID ID="z"/>
+                <ID ID="b"/>
+              </LeExpr>
+              <BodyOp>
+                <AssignExprToId ID_ASSIGN="c">
+                  <TimesExpr>
+                    <ID ID="c"/>
+                    <ID ID="a"/>
+                  </TimesExpr>
+                </AssignExprToId>
+              </BodyOp>
+            </For>
+            <ReturnNode>
+              <ID ID="c"/>
+            </ReturnNode>
+          </BodyOp>
+        </LocalNode>
+      </BodyOp>
+    </FunDefinitionOp>
+    <FunDefinitionOp FunctionName="Fibonacci">
+      <TypeNode Type="INT"/>
+      <ParamDecOp>
+        <Param n="INT"/>
+      </ParamDecOp>
+      <BodyOp>
+        <IfThenOp>
+          <EqExpr>
+            <ID ID="n"/>
+            <INT_CONST INT_CONST="0"/>
+          </EqExpr>
+          <BodyOp>
+            <ReturnNode>
+              <INT_CONST INT_CONST="0"/>
+            </ReturnNode>
+          </BodyOp>
+        </IfThenOp>
+        <IfThenElseOp>
+          <EqExpr>
+            <ID ID="n"/>
+            <INT_CONST INT_CONST="1"/>
+          </EqExpr>
+          <BodyOp>
+            <ReturnNode>
+              <INT_CONST INT_CONST="1"/>
+            </ReturnNode>
+          </BodyOp>
+          <BodyOp>
+            <ReturnNode>
+              <PlusExpr>
+                <FunctionCallExpr FunctionName="Fibonacci">
+                  <MinusExpr>
+                    <ID ID="n"/>
+                    <INT_CONST INT_CONST="1"/>
+                  </MinusExpr>
+                </FunctionCallExpr>
+                <FunctionCallExpr FunctionName="Fibonacci">
+                  <MinusExpr>
+                    <ID ID="n"/>
+                    <INT_CONST INT_CONST="2"/>
+                  </MinusExpr>
+                </FunctionCallExpr>
+              </PlusExpr>
+            </ReturnNode>
+          </BodyOp>
+        </IfThenElseOp>
+      </BodyOp>
+    </FunDefinitionOp>
+    <FunDefinitionOp FunctionName="main">
+      <TypeNode Type="NIL"/>
+      <BodyOp>
+        <LocalNode>
+          <VarDeclarations>
+            <VarDeclarationNode a="INT"/>
+            <VarDeclarationNode b="INT"/>
+          </VarDeclarations>
+          <BodyOp>
+            <WhileNode>
+              <EqExpr>
+                <ID ID="continu"/>
+                <INT_CONST INT_CONST="1"/>
+              </EqExpr>
+              <BodyOp>
+                <LocalNode>
+                  <VarDeclarations>
+                    <VarDeclarationNode scelta="INT">
+                      <VarInitNode>
+                        <FunctionCallExpr FunctionName="Menu">
+                          <NIL_CONST/>
+                        </FunctionCallExpr>
+                      </VarInitNode>
+                    </VarDeclarationNode>
+                  </VarDeclarations>
+                  <BodyOp>
+                    <IfThenOp>
+                      <EqExpr>
+                        <ID ID="scelta"/>
+                        <INT_CONST INT_CONST="1"/>
+                      </EqExpr>
+                      <BodyOp>
+                        <WriteNode>
+                          <Exprs>
+                            <FunctionCallExpr FunctionName="Somma">
+                              <NIL_CONST/>
+                            </FunctionCallExpr>
+                          </Exprs>
+                        </WriteNode>
+                      </BodyOp>
+                    </IfThenOp>
+                    <IfThenOp>
+                      <EqExpr>
+                        <ID ID="scelta"/>
+                        <INT_CONST INT_CONST="2"/>
+                      </EqExpr>
+                      <BodyOp>
+                        <WriteNode>
+                          <Exprs>
+                            <FunctionCallExpr FunctionName="Moltiplicazione">
+                              <NIL_CONST/>
+                            </FunctionCallExpr>
+                          </Exprs>
+                        </WriteNode>
+                      </BodyOp>
+                    </IfThenOp>
+                    <IfThenOp>
+                      <EqExpr>
+                        <ID ID="scelta"/>
+                        <INT_CONST INT_CONST="3"/>
+                      </EqExpr>
+                      <BodyOp>
+                        <WriteNode>
+                          <Exprs>
+                            <STRING_CONST String="Inserisci a "/>
+                          </Exprs>
+                        </WriteNode>
+                        <ReadNode>
+                          <Vars>
+                            <ID ID="a"/>
+                          </Vars>
+                        </ReadNode>
+                        <WriteNode>
+                          <Exprs>
+                            <STRING_CONST String="Inserisci b "/>
+                          </Exprs>
+                        </WriteNode>
+                        <ReadNode>
+                          <Vars>
+                            <ID ID="b"/>
+                          </Vars>
+                        </ReadNode>
+                        <WriteNode>
+                          <Exprs>
+                            <FunctionCallExpr FunctionName="Divisione">
+                              <ID ID="a"/>
+                              <ID ID="b"/>
+                            </FunctionCallExpr>
+                          </Exprs>
+                        </WriteNode>
+                      </BodyOp>
+                    </IfThenOp>
+                    <IfThenOp>
+                      <EqExpr>
+                        <ID ID="scelta"/>
+                        <INT_CONST INT_CONST="4"/>
+                      </EqExpr>
+                      <BodyOp>
+                        <WriteNode>
+                          <Exprs>
+                            <FunctionCallExpr FunctionName="Potenza">
+                              <NIL_CONST/>
+                            </FunctionCallExpr>
+                          </Exprs>
+                        </WriteNode>
+                      </BodyOp>
+                    </IfThenOp>
+                    <IfThenOp>
+                      <EqExpr>
+                        <ID ID="scelta"/>
+                        <INT_CONST INT_CONST="5"/>
+                      </EqExpr>
+                      <BodyOp>
+                        <WriteNode>
+                          <Exprs>
+                            <STRING_CONST String="Inserisci a: "/>
+                          </Exprs>
+                        </WriteNode>
+                        <ReadNode>
+                          <Vars>
+                            <ID ID="a"/>
+                          </Vars>
+                        </ReadNode>
+                        <WriteNode>
+                          <Exprs>
+                            <FunctionCallExpr FunctionName="Fibonacci">
+                              <ID ID="a"/>
+                            </FunctionCallExpr>
+                          </Exprs>
+                        </WriteNode>
+                      </BodyOp>
+                    </IfThenOp>
+                    <IfThenOp>
+                      <EqExpr>
+                        <ID ID="scelta"/>
+                        <INT_CONST INT_CONST="0"/>
+                      </EqExpr>
+                      <BodyOp>
+                        <AssignExprToId ID_ASSIGN="continu">
+                          <INT_CONST INT_CONST="0"/>
+                        </AssignExprToId>
+                      </BodyOp>
+                    </IfThenOp>
+                  </BodyOp>
+                </LocalNode>
+              </BodyOp>
+            </WhileNode>
+          </BodyOp>
+        </LocalNode>
+      </BodyOp>
+    </FunDefinitionOp>
+  </Functions>
+</ProgramOP>

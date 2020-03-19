@@ -1,0 +1,138 @@
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+import Syntax.*;
+import Statements.*;
+import Expressions.*;
+
+class Parser;
+
+/* Terminals (tokens returned by the scanner). */
+terminal FUNCTION, MAIN, END, IF, THEN, ELSE, WHILE, DO, FOR, LOCAL, GLOBAL,
+  READ, WRITE, RETURN, NOT, SHARP;
+terminal LPAR, RPAR, BLPAR, BRPAR, SLPAR, SRPAR, COMMA, SEMI, COLON;
+terminal AND, OR, LT, LE, EQ, NE, GT, GE, ARROW, ASSIGN, NOP;
+terminal PLUS, MINUS, TIMES, DIV;
+terminal UMINUS;
+
+terminal String ID;
+terminal Integer  INT_CONST ;
+terminal Float   FLOAT_CONST;
+terminal String   STRING_CONST;
+terminal Boolean  TRUE, FALSE;
+terminal String INT, BOOL, FLOAT, STRING, NIL;
+
+/* Non Terminals */
+  nonterminal ProgramNode Program;
+  nonterminal GlobalNode Global;
+  nonterminal FunctionsNode Functions;
+  nonterminal DefFun Def_fun;
+  nonterminal ParDecls Par_decls;
+  nonterminal VarDecls Var_decls;
+  nonterminal VarInitNode Var_init_value;
+  nonterminal TypeNode Type;
+  nonterminal Types Types;
+  nonterminal StatNode Stat;
+  nonterminal Statements Statements;
+  nonterminal Vars Vars;
+  nonterminal ExprNode Expr;
+  nonterminal Exprs Exprs;
+
+
+   precedence left PLUS, MINUS, OR;
+   precedence left TIMES, DIV, AND;
+   precedence nonassoc GT, GE, LT, LE, EQ, NE;
+   precedence left UMINUS, NOT, COMMA, SHARP;
+
+/* The grammar */
+Program ::= Global:g Functions:f {:RESULT=new ProgramNode(gxleft, gxright, g,f);:}
+;
+
+Global ::= GLOBAL:g Var_decls:v END {:RESULT=new GlobalNode(gxleft, gxright,v);  :}
+  |                                 {:RESULT=new GlobalNode();:}
+;
+
+Functions ::= Def_fun:d Functions:f {:f.add(d); RESULT=f;:}
+  | Def_fun:d {:RESULT=new FunctionsNode(dxleft, dxright, d);:}
+;
+
+Def_fun ::= FUNCTION:f ID:id LPAR Par_decls:p RPAR COLON Type:t Statements:s END {: RESULT=new DefFun(fxleft, fxright, id, p, t, s); :}
+  | FUNCTION:f ID:id LPAR RPAR COLON Type:t Statements:s END {:RESULT=new DefFun(fxleft, fxright, id, null, t, s);:}
+;
+
+Par_decls ::= ID:i COLON Type:t COMMA Par_decls:p {:p.add(ixleft, ixright, i,t);RESULT=p;:}
+  | ID:i COLON Type:t   {:RESULT=new ParDecls(new ParDecNode(ixleft, ixright, i, t));:}
+;
+
+Var_decls ::= Var_decls:v SEMI ID:i COLON Type:t Var_init_value:vv {: v.add( new VarDecNode(ixleft,ixright,i,t,vv)); RESULT=v;:}
+  | ID:i COLON Type:t Var_init_value:vv {: RESULT=new VarDecls(new VarDecNode(ixleft, ixright, i, t, vv)); :}
+;
+
+Var_init_value ::= ASSIGN:a Expr:e {:RESULT = new VarInitNode(axleft, axright, e);:}
+  | {:RESULT= null;:}
+;
+
+Type ::= NIL:e {:RESULT=new TypeNode(exleft, exright, "NIL");:}
+   | INT:i {:RESULT=new TypeNode(ixleft, ixright,"INT");:}
+   | BOOL:b {:RESULT=new TypeNode(bxleft,bxright,"BOOL");:}
+   | FLOAT:f {:RESULT=new TypeNode(fxleft, fxright, "FLOAT");:}
+   | STRING:s {:RESULT=new TypeNode(sxleft, sxright, "STRING"); :}
+   | BLPAR:r Type:t BRPAR {:RESULT=t; :}
+   | LPAR:l Types:ts RPAR ARROW Type:t {: RESULT=new TypeNode(lxleft, lxright, t.getType(),ts);:} ///////////////////////////////////////////////////////////////////////////////////////////////////
+   | LPAR:l RPAR ARROW Type:t {:RESULT=t;:}
+;
+
+Types ::= Type:t COMMA Types:ts {:ts.add(t); RESULT=ts;:}
+  | Type:t {:RESULT=new Types(txleft, txright, t);:}
+;
+
+Statements ::= Stat:s SEMI Statements:ss {:ss.add(s); RESULT=ss;:}
+  | Stat:s {:RESULT=new Statements(s);:}
+;
+
+Stat ::= NOP:n {:RESULT=new NopNode(nxleft, nxright);:}
+  | WHILE:w Expr:e DO Statements:s END {:RESULT=new WhileNode(wxleft, wxright, e, s);:}
+  | IF:i Expr:e THEN Statements:s END {:RESULT=new IfThenNode(ixleft,ixright, e, s);:}
+  | IF:i Expr:e THEN Statements:s1 ELSE Statements:s2 END {:RESULT=new IfThenElseNode(ixleft,ixright,e,s1,s2);:}
+  | FOR:f ID:id ASSIGN Expr:e1 COMMA Expr:e2 DO Statements:s END {:RESULT=new ForNode(fxleft, fxright,id,new AssignExprToId(idxleft,idxright,id,e1),e2, s);:}
+  | LOCAL:l Var_decls:v SEMI Statements:s END {:RESULT=new LocalNode(lxleft,lxright,v,s);:}
+  | ID:id ASSIGN Expr:e {:RESULT=new AssignExprToId(idxleft,idxright, id, e);:}
+  | Expr:e1 SLPAR Expr:e2 SRPAR ASSIGN Expr:e3 {:RESULT=new ArrayAssign(e1xleft, e1xright, e1,e2,e3);:}
+  | ID:id LPAR Exprs:e RPAR {:RESULT=new FunctionCallStatement(idxleft,idxright, id, e);:}
+  | Vars:v READ {:RESULT=new ReadNode(vxleft, vxright, v);:}
+  | Exprs:e WRITE {:RESULT=new WriteNode(exleft, exright, e);:}
+  | RETURN:r Expr:e {:RESULT=new ReturnNode(rxleft, rxright, e);:}
+;
+
+Vars ::= ID:i COMMA Vars:v {:v.add(i);  RESULT=v;:}
+  | ID:i {:RESULT=new Vars(ixleft, ixright, i);:}
+;
+
+Exprs ::= Expr:e1 COMMA Exprs:e2 {:e2.add(e1); RESULT= e2;:}
+  | Expr:e {:RESULT=new Exprs(exleft, exright, e);:}
+;
+
+Expr ::= NIL:n {:RESULT= new NilConst(nxleft, nxright);:}
+  | TRUE:t {:RESULT= new TrueExpr(txleft, txright);:}
+  | FALSE:f {:RESULT= new FalseExpr(fxleft, fxright);:}
+  | INT_CONST:i {:RESULT= new IntConstExpr(ixleft, ixright, i);:}
+  | FLOAT_CONST:f {:RESULT=new FloatConstExpr(fxleft, fxright, f);:}
+  | STRING_CONST:s {:RESULT= new StringConstExpr(sxleft, sxright,s);:}
+  | BLPAR:b BRPAR COLON Type:t {:RESULT=new ArrayConst(bxleft, bxright, t);:}
+  | ID:id  {:RESULT=new IdExpr(idxleft,idxright, id);:}
+  | Expr:e1 SLPAR Expr:e2 SRPAR {:RESULT=new ArrayAccess(e1xleft, e1xright, e1, e2);:}
+  | ID:id LPAR Exprs:e RPAR {:RESULT=new FunctionCallExpr(idxleft, idxright, e, id); :}
+  | Expr:e1 PLUS Expr:e2 {:RESULT= new PlusExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 MINUS Expr:e2 {:RESULT= new MinusExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 TIMES Expr:e2 {:RESULT= new TimesExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 DIV Expr:e2 {:RESULT= new DivExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 AND Expr:e2 {:RESULT= new AndExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 OR Expr:e2 {:RESULT= new OrExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 GT Expr:e2 {:RESULT= new GtExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 GE Expr:e2 {:RESULT= new GeExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 LT Expr:e2 {:RESULT= new LtExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 LE Expr:e2 {:RESULT= new LeExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 EQ Expr:e2 {:RESULT= new EqExpr(e1xleft, e1xright, e1, e2);:}
+  | Expr:e1 NE Expr:e2 {:RESULT= new NeExpr(e1xleft, e1xright, e1, e2);:}
+  | MINUS:m Expr:e {: RESULT = new UnaryExpr(mxleft, mxright, "-",e);:}
+  | NOT:n Expr:e {: RESULT = new UnaryExpr(nxleft, nxright, "NOT",e);:}
+  | SHARP:s Expr:e  {: RESULT = new UnaryExpr(sxleft, sxright, "#", e);:}
+;

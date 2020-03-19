@@ -1,0 +1,16 @@
+global
+    result : float = 0.0;
+    buffer : float = 0.0
+end
+
+function main (): int
+    local
+        a:int;
+        i:int;
+        for c = 4, a>5 do nop;
+         while i<6 do nop;  a =5;
+          "la somma risulta: ", result ==>
+          end
+         end
+    end
+end

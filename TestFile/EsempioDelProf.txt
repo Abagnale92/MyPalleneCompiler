@@ -1,0 +1,32 @@
+global
+    result : float = result+4;
+    buffer : float = #5
+end
+
+function addInc( x : float , y : float ): float
+    x = x +1;
+    local
+        i : float = 2.0;
+        i = i +1 ;
+        local
+            i : float = 1.0;
+            i = i +1 ;
+            y = y+i
+        end;
+        return x +y + i
+    end
+end
+
+
+
+function main( ): nil
+local
+        i : float = 2.0;
+        a : int = 0;
+        nop
+    end;
+    result = addInc( result+1, buffer);
+    result, buffer <==;
+    "la somma risulta: ", result ==>
+
+end
